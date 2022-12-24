@@ -45,8 +45,10 @@ int main (){
             break;
         case 2:
             addTransaction();
+            break;
         case 3:
             List.PrintList();
+            break;
         case 4:
         default:
             return 0;
@@ -61,6 +63,7 @@ void printBalance() {
 }
 
 void setBalance() {
+    system("cls");
     cout << "PLN:";
     cin >> bPLN;
     cout << "USDT:";
@@ -73,6 +76,7 @@ void addTransaction () {
 
     //TYPE
     system("cls");
+    printBalance();
     cout << "1. Buy\n2. Sell\nSelect type: ";
         cin >> choice;
         switch (choice)
@@ -92,6 +96,7 @@ void addTransaction () {
 
     //ASSET
     system("cls");
+    printBalance();
     cout << "1. USDT\n2. PLN\nSelect: ";
         cin >> choice;
         switch (choice)
@@ -116,6 +121,18 @@ void addTransaction () {
     //Price
     cout << "Price:";
     cin >> newTransaction.price;
+    
+    //Update balance
+    int addScale=1;
+    if(newTransaction.type == sell) addScale=-1;
+    if(newTransaction.asset == USDT) {
+        bUSDT+=newTransaction.amount*addScale;
+        bPLN-= newTransaction.amount*newTransaction.price*addScale;
+    }
+    else{
+        bUSDT-=newTransaction.amount/newTransaction.price*addScale;
+        bPLN+= newTransaction.amount*addScale;
+    }
 
     List.AddTransaction(newTransaction);
 }

@@ -16,7 +16,14 @@ struct transaction{
         std::cout << (char*)actionNames[type] << " "<< amount << " "<<(char*)currencyNames[asset] << " for "<< price << std::endl;
     }
 
-    transaction(float p=0,float a=0,action t=action{buy},currency as=currency{USDT}) {
+    transaction() {
+        this->price = 0;
+        this->amount = 0;
+        this->type = buy;
+        this->asset = USDT;
+    }
+
+    transaction(float p,float a,action t,currency as) {
         this->price = p;
         this->amount = a;
         this->type = t;
