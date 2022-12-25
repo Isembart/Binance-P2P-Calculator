@@ -1,8 +1,8 @@
 enum currency {USDT,PLN};
 enum action {buy, sell};
 
-char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
-char *actionNames[] = {(char*)"buy",(char*)"sell"};
+//char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
+//char *actionNames[] = {(char*)"buy",(char*)"sell"};
 
 struct transaction{
     float price;

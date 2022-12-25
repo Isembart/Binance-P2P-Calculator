@@ -1,89 +1,75 @@
 #include <iostream>
+#include "database_types.h"
 
-enum currency {USDT,PLN};
-enum action {buy, sell};
+//char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
+//char *actionNames[] = {(char*)"buy",(char*)"sell"};
 
-char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
-char *actionNames[] = {(char*)"buy",(char*)"sell"};
 
-struct transaction{
-    float price;
-    float amount;
-    action type;
-    currency asset;
+//TRANSACTION
+void transaction::Print() {
+    //std::cout << (char*)actionNames[type] << " "<< amount << " "<<(char*)currencyNames[asset] << " for "<< price << std::endl;
+}
+
+transaction::transaction() {
+    this->price = 0;
+    this->amount = 0;
+    this->type = buy;
+    this->asset = USDT;
+}
+
+transaction::transaction(float p,float a,action t,currency as) {
+    this->price = p;
+    this->amount = a;
+    this->type = t;
+    this->asset = as;
+}
+
+//NODE
+TransactionListNode::TransactionListNode(transaction* t) {
+    this->_transaction = t;
+    next = nullptr;
+    prev = nullptr;
+}
     
-    void Print() {
-        std::cout << (char*)actionNames[type] << " "<< amount << " "<<(char*)currencyNames[asset] << " for "<< price << std::endl;
+
+//TRANSACTIONLIST
+TransactionList::TransactionList() {
+    this->head = nullptr;
+}
+
+void TransactionList::PrintList() {
+    TransactionListNode* temp = this->head;
+    while (temp != nullptr)
+    {
+        temp->_transaction->Print();
+        temp = temp->next;
     }
+    system("pause");   
+}
 
-    transaction() {
-        this->price = 0;
-        this->amount = 0;
-        this->type = buy;
-        this->asset = USDT;
-    }
-
-    transaction(float p,float a,action t,currency as) {
-        this->price = p;
-        this->amount = a;
-        this->type = t;
-        this->asset = as;
-    }
-};
-
-struct TransactionListNode {
-    transaction* _transaction;
-    TransactionListNode* prev;
-    TransactionListNode* next;
-    TransactionListNode(transaction* t) {
-        this->_transaction = t;
-        next = nullptr;
-        prev = nullptr;
-    }
-};
-
-struct TransactionList {
-    TransactionListNode* head;
-
-    TransactionList() {
-        this->head = nullptr;
-    }
-
-    void PrintList() {
-        TransactionListNode* temp = head;
-        while (temp != nullptr)
-        {
-            temp->_transaction->Print();
-            temp = temp->next;
+TransactionListNode* TransactionList::GetLast() {
+    TransactionListNode* temp = head;
+    TransactionListNode* temp2 = head->next;
+    while (temp != nullptr)
+    {
+        if(temp2 == nullptr) {
+            return temp;
         }
-        system("pause");   
+        temp = temp->next;
+        temp2 = temp->next;
     }
+    return nullptr;
+}
 
-    TransactionListNode* GetLast() {
-        TransactionListNode* temp = head;
-        TransactionListNode* temp2 = head->next;
-        while (temp != nullptr)
-        {
-            if(temp2 == nullptr) {
-                return temp;
-            }
-            temp = temp->next;
-            temp2 = temp->next;
-        }
-        return nullptr;
+void TransactionList::AddTransaction(transaction newTransaction) {
+    TransactionListNode* newNode = new TransactionListNode(new transaction(newTransaction.price,newTransaction.amount,newTransaction.type,newTransaction.asset));
+    if(this->head !=nullptr) {
+        TransactionListNode* last = this->GetLast();
+        newNode->prev = last;
+        last->next = newNode;
     }
-
-    void AddTransaction(transaction newTransaction) {
-        TransactionListNode* newNode = new TransactionListNode(new transaction(newTransaction.price,newTransaction.amount,newTransaction.type,newTransaction.asset));
-        if(this->head !=nullptr) {
-            TransactionListNode* last = this->GetLast();
-            newNode->prev = last;
-            last->next = newNode;
-        }
-        else {
-            this->head = newNode;
-        }
+    else {
+        this->head = newNode;
+    }
         
-    }
-
-};
+}

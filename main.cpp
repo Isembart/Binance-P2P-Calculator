@@ -1,5 +1,5 @@
 #include <iostream>
-#include "database_types.cpp"
+#include "database_types.h"
 
 using namespace std;
 void setBalance();
@@ -27,6 +27,7 @@ int main (){
     //Add new transactoin
         //Buy
         //Sell
+    //Exit
 
 
     int choice = 0;
