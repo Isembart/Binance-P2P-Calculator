@@ -1,8 +1,9 @@
+#ifndef DATABASE_TYPES_H
+#define DATABASE_TYPES_H
+
 enum currency {USDT,PLN};
 enum action {buy, sell};
 
-//char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
-//char *actionNames[] = {(char*)"buy",(char*)"sell"};
 
 struct transaction{
     float price;
@@ -29,3 +30,4 @@ struct TransactionList {
     void AddTransaction(transaction);
     
 };
+#endif

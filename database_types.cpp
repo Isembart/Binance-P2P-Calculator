@@ -1,13 +1,12 @@
 #include <iostream>
 #include "database_types.h"
 
-//char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
-//char *actionNames[] = {(char*)"buy",(char*)"sell"};
-
+const char *currencyNames[] = {(char*)"USDT",(char*)"PLN"};
+const char *actionNames[] = {(char*)"buy",(char*)"sell"};
 
 //TRANSACTION
-void transaction::Print() {
-    //std::cout << (char*)actionNames[type] << " "<< amount << " "<<(char*)currencyNames[asset] << " for "<< price << std::endl;
+inline void transaction::Print() {
+    std::cout << (char*)actionNames[type] << " "<< amount << " "<<(char*)currencyNames[asset] << " for "<< price << std::endl;
 }
 
 transaction::transaction() {
