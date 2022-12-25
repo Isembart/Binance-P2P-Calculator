@@ -1,19 +1,7 @@
-#ifndef DATABASE_TYPES_H
-#define DATABASE_TYPES_H
+#ifndef TransactionList_H
+#define TransactionList_H
+#include "transaction.h"
 
-enum currency {USDT,PLN};
-enum action {buy, sell};
-
-
-struct transaction{
-    float price;
-    float amount;
-    action type;
-    currency asset;
-    void Print();
-    transaction();
-    transaction(float,float,action,currency);
-};
 
 struct TransactionListNode {
     transaction* _transaction;

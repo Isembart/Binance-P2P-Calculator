@@ -1,5 +1,6 @@
 #include <iostream>
-#include "database_types.h"
+#include "transaction.h"
+#include "TransactionList.h"
 
 using namespace std;
 void setBalance();
@@ -51,8 +52,9 @@ int main (){
             List.PrintList();
             break;
         case 4:
-        default:
             return 0;
+        default:
+            break;
         } 
         system("cls");
     }
@@ -134,6 +136,9 @@ void addTransaction () {
         bUSDT-=newTransaction.amount/newTransaction.price*addScale;
         bPLN+= newTransaction.amount*addScale;
     }
+
+    newTransaction.pln = bPLN;
+    newTransaction.usdt = bUSDT;
 
     List.AddTransaction(newTransaction);
 }
